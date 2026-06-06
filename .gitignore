@@ -1,0 +1,12 @@
+*.zip
+*.pt
+data/african-wildlife/
+data/african-wildlife.zip
+data/processed/
+data/raw/
+data/labels/
+models/weights/
+runs/
+output/
+.ipynb_checkpoints/
+__pycache__/
