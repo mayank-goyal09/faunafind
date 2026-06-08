@@ -108,10 +108,30 @@ with st.sidebar:
     st.markdown("### 📸 Image Upload")
     uploaded_file = st.file_uploader("Drop a snapshot from the reserve", type=['jpg', 'jpeg', 'png'])
 
+# --- 4. DATA HANDLING & STATE ---
+# Initialize session state for selected sample image
+if 'selected_image' not in st.session_state:
+    st.session_state.selected_image = None
+
+# If user uploads a file, reset the sample selection so the uploaded file takes precedence
+if uploaded_file is not None:
+    st.session_state.selected_image = None
+
+# Determine which image source to use
+img_source = None
+img_name = None
+
+if uploaded_file is not None:
+    img_source = uploaded_file
+    img_name = uploaded_file.name
+elif st.session_state.selected_image is not None:
+    img_source = st.session_state.selected_image
+    img_name = os.path.basename(st.session_state.selected_image)
+
 # --- 4. THE ACTION ---
-if uploaded_file:
+if img_source is not None:
     # Open image
-    img = PIL.Image.open(uploaded_file)
+    img = PIL.Image.open(img_source)
     
     with st.spinner("Scanning the horizon... 🦒"):
         # Run AI Inference
@@ -125,7 +145,13 @@ if uploaded_file:
         st.subheader("🔍 Satellite View")
         # Plot boxes on image
         annotated_img = results[0].plot()
-        st.image(annotated_img, caption="AI Vision Feed Active", use_container_width=True)
+        st.image(annotated_img, caption=f"AI Vision Feed Active - {img_name}", use_container_width=True)
+        
+        # Add a reset button if it's a sample image
+        if st.session_state.selected_image is not None:
+            if st.button("🔄 Clear Scan & Choose Another Image", use_container_width=True):
+                st.session_state.selected_image = None
+                st.rerun()
         
     with col2:
         st.subheader("📊 Expedition Report")
@@ -149,7 +175,7 @@ if uploaded_file:
             st.download_button(
                 label="📥 Download Mission Log",
                 data=csv_data,
-                file_name=f"safari_scan_{uploaded_file.name}.csv",
+                file_name=f"safari_scan_{img_name}.csv",
                 mime="text/csv",
                 use_container_width=True
             )
@@ -159,8 +185,70 @@ if uploaded_file:
 
 else:
     # Landing page state
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        st.info("💡 **Awaiting Input:** Open the sidebar menu on the left to upload a photo of a Zebra, Elephant, Buffalo, or Rhino to begin tracking.")
-        # Show a placeholder image
-        st.image("https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", caption="Awaiting deployment...", use_container_width=True)
+    st.info("💡 **Awaiting Input:** Upload a photo in the sidebar, or select one of the reserve snapshots below to test the AI scanner.")
+    
+    st.markdown("### 🐾 Reserve Gallery")
+    st.markdown("Choose a preloaded photo to analyze immediately:")
+    
+    # Tabs for different species
+    tab1, tab2, tab3, tab4 = st.tabs(["🐃 Buffalo", "🐘 Elephant", "🦏 Rhino", "🦓 Zebra"])
+    
+    # Local sample paths
+    samples = {
+        "buffalo": [
+            "sample_images/buffalo_1.jpg",
+            "sample_images/buffalo_2.jpg",
+            "sample_images/buffalo_3.jpg",
+        ],
+        "elephant": [
+            "sample_images/elephant_1.jpg",
+            "sample_images/elephant_2.jpg",
+            "sample_images/elephant_3.jpg",
+        ],
+        "rhino": [
+            "sample_images/rhino_1.jpg",
+            "sample_images/rhino_2.jpg",
+            "sample_images/rhino_3.jpg",
+        ],
+        "zebra": [
+            "sample_images/zebra_1.jpg",
+            "sample_images/zebra_2.jpg",
+            "sample_images/zebra_3.jpg",
+        ]
+    }
+    
+    with tab1:
+        cols = st.columns(3)
+        for idx, img_path in enumerate(samples["buffalo"]):
+            with cols[idx]:
+                st.image(img_path, use_container_width=True, caption=f"Buffalo Snapshot #{idx+1}")
+                if st.button(f"Scan Buffalo #{idx+1}", key=f"btn_buf_{idx}", use_container_width=True):
+                    st.session_state.selected_image = img_path
+                    st.rerun()
+                    
+    with tab2:
+        cols = st.columns(3)
+        for idx, img_path in enumerate(samples["elephant"]):
+            with cols[idx]:
+                st.image(img_path, use_container_width=True, caption=f"Elephant Snapshot #{idx+1}")
+                if st.button(f"Scan Elephant #{idx+1}", key=f"btn_ele_{idx}", use_container_width=True):
+                    st.session_state.selected_image = img_path
+                    st.rerun()
+                    
+    with tab3:
+        cols = st.columns(3)
+        for idx, img_path in enumerate(samples["rhino"]):
+            with cols[idx]:
+                st.image(img_path, use_container_width=True, caption=f"Rhino Snapshot #{idx+1}")
+                if st.button(f"Scan Rhino #{idx+1}", key=f"btn_rhi_{idx}", use_container_width=True):
+                    st.session_state.selected_image = img_path
+                    st.rerun()
+                    
+    with tab4:
+        cols = st.columns(3)
+        for idx, img_path in enumerate(samples["zebra"]):
+            with cols[idx]:
+                st.image(img_path, use_container_width=True, caption=f"Zebra Snapshot #{idx+1}")
+                if st.button(f"Scan Zebra #{idx+1}", key=f"btn_zeb_{idx}", use_container_width=True):
+                    st.session_state.selected_image = img_path
+                    st.rerun()
