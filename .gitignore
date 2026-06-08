@@ -1,5 +1,6 @@
 *.zip
 *.pt
+!best.pt
 data/african-wildlife/
 data/african-wildlife.zip
 data/processed/
