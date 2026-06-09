@@ -311,26 +311,34 @@ else:
             "sample_images/buffalo_1.jpg",
             "sample_images/buffalo_2.jpg",
             "sample_images/buffalo_3.jpg",
+            "sample_images/buffalo_4.jpg",
+            "sample_images/buffalo_5.jpg",
         ],
         "elephant": [
             "sample_images/elephant_1.jpg",
             "sample_images/elephant_2.jpg",
             "sample_images/elephant_3.jpg",
+            "sample_images/elephant_4.jpg",
+            "sample_images/elephant_5.jpg",
         ],
         "rhino": [
             "sample_images/rhino_1.jpg",
             "sample_images/rhino_2.jpg",
             "sample_images/rhino_3.jpg",
+            "sample_images/rhino_4.jpg",
+            "sample_images/rhino_5.jpg",
         ],
         "zebra": [
             "sample_images/zebra_1.jpg",
             "sample_images/zebra_2.jpg",
             "sample_images/zebra_3.jpg",
+            "sample_images/zebra_4.jpg",
+            "sample_images/zebra_5.jpg",
         ]
     }
     
     with tab1:
-        cols = st.columns(3)
+        cols = st.columns(5)
         for idx, img_path in enumerate(samples["buffalo"]):
             with cols[idx]:
                 st.image(img_path, use_container_width=True, caption=f"Buffalo Snapshot #{idx+1}")
@@ -339,7 +347,7 @@ else:
                     st.rerun()
                     
     with tab2:
-        cols = st.columns(3)
+        cols = st.columns(5)
         for idx, img_path in enumerate(samples["elephant"]):
             with cols[idx]:
                 st.image(img_path, use_container_width=True, caption=f"Elephant Snapshot #{idx+1}")
@@ -348,7 +356,7 @@ else:
                     st.rerun()
                     
     with tab3:
-        cols = st.columns(3)
+        cols = st.columns(5)
         for idx, img_path in enumerate(samples["rhino"]):
             with cols[idx]:
                 st.image(img_path, use_container_width=True, caption=f"Rhino Snapshot #{idx+1}")
@@ -357,7 +365,7 @@ else:
                     st.rerun()
                     
     with tab4:
-        cols = st.columns(3)
+        cols = st.columns(5)
         for idx, img_path in enumerate(samples["zebra"]):
             with cols[idx]:
                 st.image(img_path, use_container_width=True, caption=f"Zebra Snapshot #{idx+1}")
