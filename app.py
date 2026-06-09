@@ -19,16 +19,20 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    /* Headers with gradient text */
+    /* Headers */
     h1 { 
-        background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #10b981 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
         font-family: 'Outfit', sans-serif;
         font-weight: 800;
         text-shadow: 0px 4px 12px rgba(16, 185, 129, 0.15);
         text-align: center;
         margin-bottom: 0.5rem;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #10b981 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
     }
     h2, h3, h4, h5, h6 { 
         color: #f59e0b !important;
@@ -202,7 +206,7 @@ def load_model():
 model = load_model()
 
 # --- 3. THE UI LAYOUT ---
-st.title("🦁 Safari Sight AI")
+st.markdown("<h1 style='text-align: center;'>🦁 <span class='gradient-text'>Safari Sight AI</span></h1>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Autonomous Wildlife Identification & Population Tracking</div>", unsafe_allow_html=True)
 
 if model is None:
