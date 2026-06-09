@@ -211,7 +211,7 @@ if model is None:
 
 # Sidebar for controls
 with st.sidebar:
-    st.image("https://images.unsplash.com/photo-1547471080-7fc2caa81f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", use_container_width=True)
+    st.image("sidebar_jungle.png", use_container_width=True)
     st.header("⚙️ Scanner Settings")
     st.markdown("Adjust the sensitivity of the AI. Lower confidence detects more animals, but might make mistakes.")
     conf_threshold = st.slider("Confidence Threshold", 0.0, 1.0, 0.35, 0.05)
