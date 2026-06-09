@@ -6,74 +6,186 @@ from collections import Counter
 import os
 
 # --- 1. SETTING THE VIBE (Custom CSS) ---
-st.set_page_config(page_title="Safari Sight AI", page_icon="🦁", layout="wide")
+st.set_page_config(page_title="Safari Sight AI - Jungle Scanner", page_icon="🌿", layout="wide")
 
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap');
+
     /* Main Background & Text */
     .stApp {
-        background: linear-gradient(135deg, #1A1A1D 0%, #2A2A35 100%);
-        color: #E2DFD2;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #041208 0%, #0d2914 50%, #030804 100%);
+        color: #ecfdf5;
+        font-family: 'Inter', sans-serif;
     }
     
-    /* Headers */
+    /* Headers with gradient text */
     h1 { 
-        color: #F9A826; 
+        background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #10b981 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: 'Outfit', sans-serif;
         font-weight: 800;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        text-shadow: 0px 4px 12px rgba(16, 185, 129, 0.15);
         text-align: center;
         margin-bottom: 0.5rem;
     }
-    h2, h3 { color: #F9A826; }
+    h2, h3, h4, h5, h6 { 
+        color: #f59e0b !important;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
     
     /* Subtitle */
     .subtitle {
         text-align: center;
-        color: #A0AAB2;
-        font-size: 1.2rem;
-        font-style: italic;
-        margin-bottom: 2rem;
-    }
-    
-    /* Buttons */
-    .stButton>button { 
-        background: linear-gradient(90deg, #F9A826 0%, #F07025 100%);
-        color: white; 
-        border-radius: 8px; 
-        border: none; 
-        font-weight: bold;
-        transition: all 0.3s ease;
+        color: #a7f3d0;
+        font-size: 1.25rem;
+        font-weight: 300;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .stButton>button:hover { 
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(249, 168, 38, 0.4);
+        margin-bottom: 2.5rem;
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
-        background-color: #1E1E24;
-        border-right: 1px solid #333;
+        background-color: #030a04 !important;
+        border-right: 1px solid rgba(16, 185, 129, 0.15) !important;
+    }
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+        color: #a7f3d0;
     }
     
-    /* Cards/Containers */
-    .css-1r6slb0, .css-12oz5g7 {
-         background-color: rgba(255, 255, 255, 0.05);
-         border-radius: 10px;
-         padding: 15px;
-         border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Sidebar Headers */
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {
+        color: #f59e0b !important;
+        -webkit-text-fill-color: #f59e0b !important;
+    }
+    
+    /* Buttons */
+    .stButton>button { 
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        color: #ffffff !important; 
+        border-radius: 10px; 
+        border: 1px solid rgba(255, 255, 255, 0.1); 
+        font-weight: 700;
+        font-family: 'Outfit', sans-serif;
+        padding: 0.6rem 1.8rem;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: uppercase;
+        letter-spacing: 0.75px;
+        width: 100%;
+    }
+    
+    .stButton>button:hover { 
+        background: linear-gradient(90deg, #059669 0%, #f59e0b 100%);
+        color: #041208 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .stButton>button:active {
+        transform: translateY(0px);
+    }
+    
+    /* Cards/Containers & Metric Blocks */
+    div[data-testid="stVerticalBlockBorderWrapper"], 
+    div[data-testid="element-container"] .css-1r6slb0,
+    div[data-testid="element-container"] .css-12oz5g7 {
+         background: rgba(13, 41, 20, 0.45) !important;
+         border-radius: 12px !important;
+         padding: 20px !important;
+         border: 1px solid rgba(16, 185, 129, 0.2) !important;
+         backdrop-filter: blur(12px);
+         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    }
+    
+    /* Tabs custom styling */
+    div[data-testid="stTabBar"] {
+        background-color: rgba(4, 18, 8, 0.6) !important;
+        border-radius: 12px;
+        padding: 6px;
+        border: 1px solid rgba(16, 185, 129, 0.15);
+    }
+    
+    button[data-testid="stTabBarTab"] {
+        color: #a7f3d0 !important;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    button[data-testid="stTabBarTab"][aria-selected="true"] {
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #f59e0b !important;
+        border-bottom: 2px solid #f59e0b !important;
     }
     
     /* Tables */
-    table { color: #E2DFD2 !important; }
-    th { background-color: rgba(249, 168, 38, 0.2) !important; color: #F9A826 !important; }
+    div[data-testid="stTable"] table { 
+        color: #ecfdf5 !important; 
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid rgba(16, 185, 129, 0.2) !important;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    div[data-testid="stTable"] th { 
+        background-color: rgba(16, 185, 129, 0.15) !important; 
+        color: #f59e0b !important; 
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        border-bottom: 2px solid rgba(16, 185, 129, 0.3) !important;
+    }
+    
+    div[data-testid="stTable"] td {
+        background-color: rgba(4, 18, 8, 0.3) !important;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1) !important;
+    }
     
     /* File Uploader override */
     [data-testid="stFileUploadDropzone"] {
-        border-color: #F9A826;
-        background-color: rgba(24, 24, 29, 0.8);
+        border: 2px dashed rgba(16, 185, 129, 0.5) !important;
+        background-color: rgba(4, 18, 8, 0.7) !important;
+        border-radius: 12px !important;
+        transition: all 0.3s ease;
+    }
+    
+    [data-testid="stFileUploadDropzone"]:hover {
+        border-color: #f59e0b !important;
+        background-color: rgba(13, 41, 20, 0.6) !important;
+    }
+
+    [data-testid="stFileUploadDropzone"] [data-testid="stMarkdownContainer"] {
+        color: #ecfdf5 !important;
+    }
+    
+    /* Info/Success/Warning boxes styling overrides */
+    div[data-testid="stAlert"] {
+        background-color: rgba(4, 18, 8, 0.75) !important;
+        border-radius: 12px;
+        border: 1px solid rgba(16, 185, 129, 0.2) !important;
+    }
+    
+    div[data-testid="stAlert"] [data-testid="stMarkdownContainer"] {
+        color: #ecfdf5 !important;
+    }
+    
+    /* Slider custom aesthetics */
+    div[data-testid="stSlider"] [class^="st-"] {
+        color: #10b981;
+    }
+    
+    div[data-testid="stSlider"] div[role="slider"] {
+        background-color: #f59e0b !important;
+        border: 2px solid #10b981 !important;
     }
     </style>
     """, unsafe_allow_html=True)
