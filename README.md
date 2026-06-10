@@ -2,7 +2,7 @@
 
 # 🌿 Safari Sight AI — Autonomous Jungle Scanner & Census Dashboard
 
-### 🌐 **[Scan the Reserve & Track Wild Populations](https://safari-sight-ai.streamlit.app/)**
+### 🌐 **[Scan the Reserve & Track Wild Populations](https://faunafind-project.streamlit.app/)**
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Outfit&weight=700&size=30&duration=3000&pause=1000&color=10B981&center=true&vCenter=true&width=900&height=50&lines=Scan+the+horizon...+🌿;Identify+Buffalo%2C+Elephants%2C+Rhinos%2C+and+Zebras;YOLOv8+Computer+Vision+Pipeline;Live+Jungle+HUD+with+Falling+Leaves+Animations)](https://git.io/typing-svg)
 
