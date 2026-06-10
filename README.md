@@ -80,7 +80,9 @@ graph TD
 
 #### 1. Custom-Trained YOLOv8 Architecture 🧠
 The model is fine-tuned to classify 4 primary classes under the COCO-compatible format. During inference, images are scaled and normalized before passing through the Backbone and Neck layers, yielding coordinates:
-$$\text{Box} = [x_{min}, y_{min}, x_{max}, y_{max}, \text{confidence}, \text{class\_id}]$$
+```text
+Box = [x_min, y_min, x_max, y_max, confidence, class_id]
+```
 Detections exceeding the user's `Confidence Threshold` are drawn onto the frame using YOLOv8's optimized plotting pipelines.
 
 #### 2. Falling Leaves Background Animation 🍃
